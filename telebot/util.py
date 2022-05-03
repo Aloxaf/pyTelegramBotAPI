@@ -254,6 +254,25 @@ def extract_command(text: str) -> Union[str, None]:
     return text.split()[0].split('@')[0][1:] if is_command(text) else None
 
 
+def extract_botname(text: str) -> Union[str, None]:
+    """
+    Extracts the bot's name from `text` if `text` is a command (see is_command).
+    If `text` is not a command, this function returns None.
+
+    Examples:
+    extract_bot('/help@BotName'): 'BotName'
+    extract_bot('/search black eyed peas'): None
+    extract_bot('Good day to you'): None
+
+    :param text: String to extract the bot's name from
+    :return: the bot's name if `text` is a command (according to is_command), else None.
+    """
+    if text is None: return None
+    if not is_command(text): return None
+    parts = text.split()[1].split('@')
+    return parts[1] if len(parts) == 2 else None
+
+
 def extract_arguments(text: str) -> str:
     """
     Returns the argument after the command.

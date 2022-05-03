@@ -3876,7 +3876,8 @@ class TeleBot:
         elif message_filter == 'regexp':
             return message.content_type == 'text' and re.search(filter_value, message.text, re.IGNORECASE)
         elif message_filter == 'commands':
-            return message.content_type == 'text' and util.extract_command(message.text) in filter_value
+            return message.content_type == 'text' and util.extract_command(message.text) in filter_value \
+                   and util.extract_botname(message.text) in [None, self.user.username]
         elif message_filter == 'chat_types':
             return message.chat.type in filter_value
         elif message_filter == 'func':
